@@ -1,3 +1,5 @@
+import { CAR_WIDTH } from './constants/car-dimensions.js';
+import { ELASTIC, INELASTIC } from './constants/colision-types.js';
 import Car from './entities/car.js';
 import Colision from './entities/colision.js';
 
@@ -8,9 +10,9 @@ let cars = [];
 
 let colision;
 let simulationRunning = false;
-let colisionType = 'elastic';
+let colisionType = ELASTIC;
 
-const { clientWidth, clientHeight } = document.documentElement;
+const { clientWidth, clientHeight } = document.body;
 
 window.preload = () => {
     backgroundImage = loadImage('./assets/images/background.png');
@@ -24,17 +26,17 @@ window.preload = () => {
 
     carsProperties = [
         {
-            x: 100,
-            y: 450,
-            diameter: 50,
+            x: 0.1 * clientWidth,
+            y: 0.8 * clientHeight,
+            diameter: 0,
             speed: 5,
             weight: 100,
             image: loadImage('./assets/images/car-a.png'),
         },
         {
-            x: 1000,
-            y: 450,
-            diameter: 50,
+            x: 0.7 * clientWidth,
+            y: 0.8 * clientHeight,
+            diameter: 0,
             speed: 0,
             weight: 140,
             image: loadImage('./assets/images/car-b.png'),
@@ -43,7 +45,7 @@ window.preload = () => {
 }
 
 window.setup = () => {
-    canvas = createCanvas(clientWidth - 200, clientHeight - 200);
+    canvas = createCanvas(clientWidth, clientHeight);
 
     cars = carsProperties.map((car) => new Car(car));
     colision = new Colision(cars);
@@ -67,7 +69,7 @@ window.draw = () => {
 }
 
 window.windowResized = () => {
-    resizeCanvas(clientWidth - 200, clientHeight - 200);
+    resizeCanvas(clientWidth, clientHeight);
 }
 
 document.querySelector('.btn-pause').addEventListener('click', () => {

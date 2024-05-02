@@ -1,6 +1,6 @@
 import { CAR_WIDTH, CAR_HEIGHT } from '../constants/car-dimensions.js';
 
-const { clientWidth } = document.documentElement;
+const { clientWidth } = document.body;
 
 export default class Car {
     constructor({ x, y, diameter, speed, weight, image }) {
@@ -18,7 +18,7 @@ export default class Car {
         // Verifica se a bolinha atinge as bordas da tela e inverte a direção
         if (
             this.x <= this.diameter / 2
-            || this.x >= (clientWidth - 200 - CAR_WIDTH) - this.diameter / 2
+            || this.x >= (clientWidth - CAR_WIDTH) - (this.diameter / 2)
         ) {
             this.speed *= -1;
         }
@@ -37,15 +37,15 @@ export default class Car {
         textAlign(CENTER, BOTTOM);
 
         // Exibe a velocidade e a massa do carrinho
-        text(`Velocidade: ${this.speed.toFixed(2)}`, this.x + 150, this.y - this.diameter - 20);
-        text(`Massa: ${this.weight}`, this.x + 160, this.y - this.diameter - 35);
+        text(`Velocidade: ${this.speed.toFixed(2)}`, this.x + (0.2 * CAR_WIDTH), this.y - this.diameter - 20);
+        text(`Massa: ${this.weight}`, this.x + (0.2 * CAR_WIDTH), this.y - this.diameter - 35);
 
         // Calcular a energia cinética
         const kineticEnergy = 0.5 * this.weight * (this.speed ** 2);
-        text(`Energia Cinética: ${kineticEnergy.toFixed(2)}`, this.x + 150, this.y - this.diameter - 50);
+        text(`Energia Cinética: ${kineticEnergy.toFixed(2)}`, this.x + (0.2 * CAR_WIDTH), this.y - this.diameter - 50);
 
         // Calcular e exibe o momento do carrinho
         const momentum = this.weight * this.speed;
-        text(`Momento: ${momentum.toFixed(2)}`, this.x + 160, this.y - this.diameter - 65);
+        text(`Momento: ${momentum.toFixed(2)}`, this.x + (0.2 * CAR_WIDTH), this.y - this.diameter - 65);
     }
 }

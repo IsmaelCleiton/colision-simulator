@@ -1,2 +1,2 @@
-export const CAR_WIDTH = 394;
-export const CAR_HEIGHT = 159;
+export const CAR_WIDTH = 0.1 * document.body.clientWidth;
+export const CAR_HEIGHT = 0.1 * document.body.clientHeight;
