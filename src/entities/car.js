@@ -1,6 +1,5 @@
 import { CAR_WIDTH, CAR_HEIGHT } from '../constants/car-dimensions.js';
-
-const { clientWidth } = document.body;
+import { getClientHeight, getClientWidth } from '../functions/window-size.js';
 
 export default class Car {
     constructor({ x, y, diameter, speed, weight, image }) {
@@ -18,10 +17,14 @@ export default class Car {
         // Verifica se a bolinha atinge as bordas da tela e inverte a direção
         if (
             this.x <= this.diameter / 2
-            || this.x >= (clientWidth - CAR_WIDTH) - (this.diameter / 2)
+            || this.x >= (getClientWidth() - CAR_WIDTH) - (this.diameter / 2)
         ) {
             this.speed *= -1;
         }
+    }
+
+    updateSize() {
+        this.x = (this.x / getClientWidth()) * getClientWidth();
     }
 
     display() {
@@ -47,5 +50,7 @@ export default class Car {
         // Calcular e exibe o momento do carrinho
         const momentum = this.weight * this.speed;
         text(`Momento: ${momentum.toFixed(2)}`, this.x + (0.2 * CAR_WIDTH), this.y - this.diameter - 65);
+
+        text(`x:${this.x}; y:${this.y}`, this.x + (0.2 * CAR_WIDTH), this.y - this.diameter - 80);
     }
 }
